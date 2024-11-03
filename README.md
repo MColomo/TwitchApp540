@@ -106,4 +106,5 @@ Consideraciones de Seguridad
 Recursos Adicionales
 
 [Documentación de la API de Twitch](https://dev.twitch.tv/docs/api/)
+
 [Laravel Documentation](https://laravel.com/docs/11.x)
