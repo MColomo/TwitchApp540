@@ -1,66 +1,109 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+Twitch Analytics API
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es una aplicación en Laravel que proporciona endpoints para consultar información de streamers y streams en vivo desde la API de Twitch.
+Requisitos Previos
 
-## About Laravel
+    PHP >= 8.3.6
+    Composer
+    Laravel >= 11.9
+    Cuenta de desarrollador en Twitch Developer Console
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Instalación
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Clona el repositorio:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
+    git clone https://github.com/MColomo/TwitchApp540.git
+    cd twitch-analytics
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Instala las dependencias:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+    composer install
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Configura las variables de entorno:
 
-## Laravel Sponsors
+    Copia el archivo .env.example y renómbralo a .env.
+    Configura tus credenciales de la API de Twitch en el archivo .env:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+    TWITCH_CLIENT_ID=tu_client_id
+    TWITCH_CLIENT_SECRET=tu_client_secret
+    TWITCH_TOKEN_URL=https://id.twitch.tv/oauth2/token
+    TWITCH_API_URL=https://api.twitch.tv/helix
 
-### Premium Partners
+Genera la clave de aplicación:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+    php artisan key:generate
 
-## Contributing
+Ejecuta las migraciones (si es necesario):
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    php artisan migrate
 
-## Code of Conduct
+Inicia el servidor de desarrollo:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+    php artisan serve
 
-## Security Vulnerabilities
+        La aplicación estará disponible en http://localhost:8000.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Endpoints
+1. Consultar Información de un Streamer
 
-## License
+    URL: /analytics/user
+    Método: GET
+    Parámetros de Consulta:
+        id (requerido): El identificador del usuario de Twitch.
+    Ejemplo de Solicitud:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+    http
+
+    GET /analytics/user?id=1234
+
+    Posibles Respuestas:
+        200 OK: Información del usuario.
+        400 Bad Request: ID inválido o ausente.
+        401 Unauthorized: Token de acceso inválido o expirado.
+        404 Not Found: Usuario no encontrado.
+        500 Internal Server Error: Error inesperado.
+
+2. Consultar Streams en Vivo
+
+    URL: /analytics/streams
+    Método: GET
+    Ejemplo de Solicitud:
+
+    http
+
+    GET /analytics/streams
+
+    Posibles Respuestas:
+        200 OK: Lista de streams en vivo.
+        401 Unauthorized: Token de acceso inválido o expirado.
+        500 Internal Server Error: Error inesperado.
+
+Configuración de la API de Twitch
+
+    Regístrate en Twitch Developer Console.
+    Crea una nueva aplicación y obtén tu Client ID y Client Secret.
+    Configura las URLs necesarias en tu archivo .env.
+
+Pruebas (Generadas ChatGPT)
+
+    php artisan test
+
+    Las pruebas están ubicadas en tests/Unit/TwitchServiceTest.php y tests/Feature/StreamControllerTest.php.
+
+Estructura del Proyecto
+
+    app/Services/TwitchService.php: Servicio que se encarga de gestionar las solicitudes a la API de Twitch.
+    app/Http/Controllers/UserController.php: Controlador para manejar las solicitudes de información de streamers.
+    app/Http/Controllers/StreamController.php: Controlador para manejar las solicitudes de streams en vivo.
+    routes/web.php: Definición de rutas de la aplicación.
+
+Consideraciones de Seguridad
+
+    Asegúrate de no exponer tus credenciales (Client ID y Client Secret) públicamente.
+    Implementa controles adicionales para manejar la seguridad si planeas desplegar la aplicación en producción.
+
+Recursos Adicionales
+
+    [Documentación de la API de Twitch](https://dev.twitch.tv/docs/api/)
+    [Laravel Documentation](https://laravel.com/docs/11.x)
