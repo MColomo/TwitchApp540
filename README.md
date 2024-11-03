@@ -108,3 +108,9 @@ Recursos Adicionales
 [Documentación de la API de Twitch](https://dev.twitch.tv/docs/api/)
 
 [Laravel Documentation](https://laravel.com/docs/11.x)
+
+NOTAS MCC:
+
+Al no poder instalar dockers en mi equipo, he hecho el proyecto en WSL de Windows. 
+
+La BBDD mySql estaba lanzada desde XAMPP en Windows.
